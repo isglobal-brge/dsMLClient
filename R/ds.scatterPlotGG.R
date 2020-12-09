@@ -82,22 +82,22 @@ ds.scatterPlotGG <- function (x=NULL, y=NULL, group = NULL, method='deterministi
   # or just as a vector not attached to a table (i.e. object)
   # we have to make sure the function deals with each case
   objects <- c(x, y)
-  xnames <- extract(objects)
+  xnames <- dsBaseClient::extract(objects)
   varnames <- xnames$elements
   obj2lookfor <- xnames$holders
   
   # check if the input object(s) is(are) defined in all the studies
   for(i in 1:length(varnames)){
     if(is.na(obj2lookfor[i])){
-      defined <- isDefined(datasources, varnames[i])
+      defined <- dsBaseClient::isDefined(datasources, varnames[i])
     }else{
-      defined <- isDefined(datasources, obj2lookfor[i])
+      defined <- dsBaseClient::isDefined(datasources, obj2lookfor[i])
     }
   }
   
   # call the internal function that checks the input object(s) is(are) of the same class in all studies.
-  typ.x <- checkClass(datasources, x)
-  typ.y <- checkClass(datasources, y)
+  typ.x <- dsBaseClient::checkClass(datasources, x)
+  typ.y <- dsBaseClient::checkClass(datasources, y)
   
   # the input objects must be numeric or integer vectors
   if(!('integer' %in% typ.x) & !('numeric' %in% typ.x)){
@@ -112,9 +112,9 @@ ds.scatterPlotGG <- function (x=NULL, y=NULL, group = NULL, method='deterministi
   # the input variable might be given as column table (i.e. D$x)
   # or just as a vector not attached to a table (i.e. x)
   # we have to make sure the function deals with each case
-  xnames <- extract(x)
+  xnames <- dsBaseClient::extract(x)
   x.lab <- xnames[[length(xnames)]]
-  ynames <- extract(y)
+  ynames <- dsBaseClient::extract(y)
   y.lab <- ynames[[length(ynames)]]
   
   # name of the studies to be used in the plots' titles
