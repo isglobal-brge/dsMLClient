@@ -8,7 +8,7 @@ author:
 date: "`r Sys.Date()`"
 output:
   BiocStyle::html_document
-bibliography: ds_new_functions_Vignette.bib
+bibliography: dsML_references.bib
 csl: bioinformatics.csl
 vignette: >
   %\VignetteIndexEntry{New DataSHIELD functions proposal and details}
