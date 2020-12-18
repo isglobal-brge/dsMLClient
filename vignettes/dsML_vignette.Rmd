@@ -1,5 +1,5 @@
 ---
-title: "New DataSHIELD functions proposal and details"
+title: "Machine Learning DataSHIELD functions"
 author:
 - name: Xavier Escribà Montagut
   affiliation:
