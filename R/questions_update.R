@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param questions 
+#' @param best_split 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 questions_update <- function(questions, best_split){
   
   if(best_split[,4] == "numerical"){
