@@ -355,3 +355,38 @@ To do:
 
 + Implement method to perform regression (currently only factor classification is implemented)
 
+# Factor analysis of mixed data
+
+## Definition
+
+Factor analysis of mixed data (FAMD) is an exploratory method for data tables that contain qualitative and quantitative information. It can be seen as a mix between PCA (quantitative) and MCA (qualitative).
+
+## Statistical method implemented
+
+The method proposed by Jérôme Pagès [-@FAMD] is the following:
+
++ Categorical variables are encoded using the indicator matrix of dummy variables.
++ Each continuous variable is standardized (divided by it's standard deviation).
++ Each dummy variable is divided by $\sqrt{p_j}$ (where $p_j$ is the proportion of individuals that take the category $j$).
++ A PCA is performed to the resulting matrix
+
+This will yield principal components that are lineal combinations of all the quantitative variable as well as all the levels of the qualitative variables.
+
+## Implementation
+
+The previous method is directly translated to the study servers as follows.
+
+![FAMD flowchart](images/famd.png)
+
+## Usage
+
+Only the name of the table that holds the information to be analyzed needs to be passed. Note that only the variables that have class *numerical* and *factor* will be used, if a factor variable is encoded as an integer preprocessing is required by the user.
+
+```{r}
+ds.FAMD("iris")
+```
+
+
+To do:
+
++ Implement visualization methods.

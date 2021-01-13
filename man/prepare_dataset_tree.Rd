@@ -4,7 +4,7 @@
 \alias{prepare_dataset_tree}
 \title{Title}
 \usage{
-prepare_dataset_tree(object, questions, datasources)
+prepare_dataset_tree(object, objective_column, questions, datasources)
 }
 \arguments{
 \item{object}{}
