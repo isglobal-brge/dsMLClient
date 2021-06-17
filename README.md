@@ -41,7 +41,9 @@ devtools::install_github('isglobal-brge/dsMLClient@v1.0.5')
 
 # Usage:
 
-Non-disclosive Machine learning functions.
+* Non-disclosive Machine learning functions.
+
+* https://htmlpreview.github.io/?https://github.com/isglobal-brge/dsMLClient/blob/main/vignettes/dsML_vignette.html
 
 # Acknowledgements
 
