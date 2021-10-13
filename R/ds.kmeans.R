@@ -74,18 +74,22 @@ ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroid
     # Perform iterations until error gets below threshold or max iter reached
     # Get kmeans centroids from each server (first iteration)
     cally <- paste0("kmeansDS(", x, ", ", paste0(centroids, collapse = ","), ")")
+    new <- DSI::datashield.aggregate(datasources, cally)
     
-    new <- DSI::datashield.aggregate(datasources, as.symbol(cally))
-    
-    # Calculate weighted mean of the new centroids
-    w <- matrix(0, ncol = k, nrow = length(columns))
-    for(i in 1:length(columns)){
-      for(j in 1:k){
-        w[i,j] <- weighted.mean(unlist(lapply(new, function(x) x[[2]][j,i])), 
-                                unlist(lapply(new, function(x) x[[1]][j,2])))
+    # Calculate weighted mean of the new centroids (if there is more than 1 study server)
+    if(length(datasources) == 1){
+      w <- t(new[[1]]$centers)
+    } else {
+      w <- matrix(0, ncol = k, nrow = length(columns))
+      for(i in 1:length(columns)){
+        for(j in 1:k){
+          w[i,j] <- weighted.mean(unlist(lapply(new, function(x) x[[2]][j,i])), 
+                                  unlist(lapply(new, function(x) x[[1]][j,2])))
+        }
       }
     }
-    error <- max(abs(w - centroids))
+    w[which(is.na(w))] <- centroids[which(is.na(w))]
+    error <- max(abs(w - centroids), na.rm = T)
     centroids <- w
     iter <- iter + 1
   }
@@ -100,7 +104,7 @@ ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroid
     # Assign column with cluster grouping to the server dataset
     for(i in 1:length(new)){
       cally <- paste0("kmeans.assign_resultDS(",x, ",", paste0(new[[i]]$assignations, collapse = ","), ")")
-      DSI::datashield.assign.expr(datasources[i], name, as.symbol(cally))
+      DSI::datashield.assign.expr(datasources[i], name, cally)
     }
   }
   

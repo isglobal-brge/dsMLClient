@@ -1,12 +1,7 @@
 Package: dsMLClient
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Title: DataSHIELD client site machine learning functions.
+Version: 0.91
+Authors@R: c(person("Xavier", "Escribà-Montagut", , "xavier.escriba@isglobal.org", role = c("aut", "cre")))
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
