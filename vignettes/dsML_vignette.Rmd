@@ -38,6 +38,8 @@ To reproduce the results displayed on this vignette, a serverless configuration 
 ```{r eval = FALSE}
 devtools::install_github("isglobal-brge/dsML")
 devtools::install_github("isglobal-brge/dsMLClient")
+install.packages('dsBaseClient', repos=c(getOption('repos'), 'https://cran.obiba.org'))
+install.packages('dsBase', repos=c(getOption('repos'), 'https://cran.obiba.org'))
 ```
 
 The other required packages can be installed from CRAN.
