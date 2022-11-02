@@ -13,9 +13,6 @@ ds.find_best_split(object, objective_column, datasources = NULL)
 
 \item{datasources}{}
 }
-\value{
-
-}
 \description{
 Title
 }

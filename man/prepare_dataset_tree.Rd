@@ -13,9 +13,6 @@ prepare_dataset_tree(object, objective_column, questions, datasources)
 
 \item{datasources}{}
 }
-\value{
-
-}
 \description{
 Title
 }

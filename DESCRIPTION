@@ -1,11 +1,10 @@
 Package: dsMLClient
 Title: DataSHIELD client site machine learning functions.
 Version: 0.91
-Authors@R: c(person("Xavier", "Escribà-Montagut", , "xavier.escriba@isglobal.org", role = c("aut", "cre")))
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1

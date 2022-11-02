@@ -15,9 +15,6 @@ ds.gini_index(object, column, objective_column, datasources = NULL)
 
 \item{datasources}{}
 }
-\value{
-
-}
 \description{
 Title
 }

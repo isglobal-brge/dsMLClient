@@ -28,8 +28,14 @@ ds.FAMD <- function(x, datasources = NULL){
   
   ds.dummies(paste0(x, "_factors"), NULL, TRUE, datasources)
   
-  cally <- paste0("cbind(", paste0(x, "_numerics"), ", ", paste0(x, "_factors"), ")")
-  DSI::datashield.assign.expr(datasources, paste0(x, "_complete"), as.symbol(cally))
+  ds.cbind(
+    x = c(paste0(x, "_numerics"),
+          paste0(x, "_factors")), 
+    newobj = paste0(x, "_complete"), 
+    datasources = datasources
+  )
+  # cally <- paste0("cbind(", paste0(x, "_numerics"), ", ", paste0(x, "_factors"), ")")
+  # DSI::datashield.assign.expr(datasources, paste0(x, "_complete"), as.symbol(cally))
   
   ds.PCA(paste0(x, "_complete"), method = "full", scale = FALSE, center = FALSE, datasources = datasources)
   

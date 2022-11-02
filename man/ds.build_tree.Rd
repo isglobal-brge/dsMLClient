@@ -15,9 +15,6 @@ ds.build_tree(object, objective_column, questions = NULL, datasources = NULL)
 
 \item{datasources}{}
 }
-\value{
-
-}
 \description{
 Title
 }

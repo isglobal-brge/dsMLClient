@@ -11,9 +11,6 @@ questions_update(questions, best_split)
 
 \item{best_split}{}
 }
-\value{
-
-}
 \description{
 Title
 }

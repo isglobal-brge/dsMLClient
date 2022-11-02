@@ -15,9 +15,6 @@ leaf(object, questions, objective_column, datasources)
 
 \item{datasources}{}
 }
-\value{
-
-}
 \description{
 Title
 }
