@@ -6,7 +6,8 @@
 #' @param x \code{character} Name of the table on the server side with the results of the 
 #' k-means (\code{ds.kmeans(..., assign = TRUE)})
 #' @param xcomp \code{character} Name of the variable on the 'x' data frame to be plotted on the x axis of the scatter plot
-#' @param ycomp \code{character} Name of the variable on the 'x' data frame to be plotted on the y axis of the scatter plot
+#' @param ycomp \code{character} Name of the variable on the 'y' data frame to be plotted on the y axis of the scatter plot
+#' @param ellipses a flag indicates if ellipse is used
 #' @param datasources a list of \code{\link{DSConnection-class}} (default \code{NULL}) objects obtained after login
 #'
 #' @return \code{ggplot} object

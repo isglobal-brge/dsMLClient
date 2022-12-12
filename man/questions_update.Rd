@@ -7,9 +7,12 @@
 questions_update(questions, best_split)
 }
 \arguments{
-\item{questions}{}
+\item{questions}{basis of questions update}
 
-\item{best_split}{}
+\item{best_split}{best split needed for questions update}
+}
+\value{
+the question update
 }
 \description{
 Title

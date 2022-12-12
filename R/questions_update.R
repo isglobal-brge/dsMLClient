@@ -1,12 +1,11 @@
 #' Title
 #'
-#' @param questions 
-#' @param best_split 
+#' @param questions basis of questions update
+#' @param best_split best split needed for questions update
 #'
-#' @return
+#' @return the question update
 #' @export
 #'
-#' @examples
 questions_update <- function(questions, best_split){
   
   if(best_split[,4] == "numerical"){

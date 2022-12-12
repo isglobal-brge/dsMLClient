@@ -10,7 +10,7 @@
 ds.dummy_probability <- function(x, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   dsBaseClient:::isDefined(datasources, x)
@@ -21,7 +21,7 @@ ds.dummy_probability <- function(x, datasources = NULL){
   
   cally <- paste0("dummy_probabilityDS(", x, ")")
   counts <- DSI::datashield.aggregate(datasources, as.symbol(cally))
-  totals <- ds.dim(x)[[3]][1]
+  totals <- dsBaseClient::ds.dim(x)[[3]][1]
   
   probs <- matrix(unlist(counts), nrow=length(counts), byrow=T)
   probs <- probs / totals

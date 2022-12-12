@@ -7,13 +7,18 @@
 leaf(object, questions, objective_column, datasources)
 }
 \arguments{
-\item{object}{}
+\item{object}{basis of leaf}
 
-\item{questions}{}
+\item{questions}{questions needed for leaf.}
 
-\item{objective_column}{}
+\item{objective_column}{objective column needed for leaf.}
 
-\item{datasources}{}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.
+If the \code{datasources} argument is not specified
+the default set of connections will be used: see \code{\link{datashield.connections_default}}.}
+}
+\value{
+the leaf
 }
 \description{
 Title

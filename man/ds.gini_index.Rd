@@ -7,13 +7,18 @@
 ds.gini_index(object, column, objective_column, datasources = NULL)
 }
 \arguments{
-\item{object}{}
+\item{object}{basis of gini index}
 
-\item{column}{}
+\item{column}{column needed for gini index}
 
-\item{objective_column}{}
+\item{objective_column}{objective column needed for gini index}
 
-\item{datasources}{}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.
+If the \code{datasources} argument is not specified
+the default set of connections will be used: see \code{\link{datashield.connections_default}}.}
+}
+\value{
+the gini index
 }
 \description{
 Title

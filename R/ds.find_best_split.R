@@ -1,20 +1,21 @@
 #' Title
 #'
-#' @param object 
-#' @param objective_column 
-#' @param datasources 
+#' @param object basis of best split
+#' @param objective_column object column of best split
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' If the \code{datasources} argument is not specified
+#' the default set of connections will be used: see \code{\link{datashield.connections_default}}.
 #'
-#' @return
+#' @return the best split
 #' @export
 #'
-#' @examples
 ds.find_best_split <- function(object, objective_column, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   # Same cols assumed here
-  cols <- ds.colnames(object, datasources = datasources)[[1]]
+  cols <- dsBaseClient::ds.colnames(object, datasources = datasources)[[1]]
   cols <- cols[-which(cols == objective_column)]
   # if(!is.null(questions)){
   #   cols <- cols[-which(cols %in% questions[,2])]

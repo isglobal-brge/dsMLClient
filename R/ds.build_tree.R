@@ -1,18 +1,19 @@
 #' Title
 #'
-#' @param object 
-#' @param objective_column 
-#' @param questions 
-#' @param datasources 
+#' @param object basis of build tree
+#' @param objective_column objective columns needed to build tree
+#' @param questions questions needed to build tree
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' If the \code{datasources} argument is not specified
+#' the default set of connections will be used: see \code{\link{datashield.connections_default}}.
 #'
-#' @return
+#' @return the built tree
 #' @export
 #'
-#' @examples
 ds.build_tree <- function(object, objective_column, questions = NULL, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   if(!is.null(questions)){
@@ -23,7 +24,7 @@ ds.build_tree <- function(object, objective_column, questions = NULL, datasource
     }
   }
   else{
-    ds.make(object, "tree_data", datasources)
+    dsBaseClinet::ds.make(object, "tree_data", datasources)
   }
   
   best_split <- ds.find_best_split("tree_data", objective_column, datasources)
