@@ -15,7 +15,7 @@
 ds.scale <- function(x, type = "combined", name = NULL, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   if(is.null(name)){
@@ -46,14 +46,14 @@ ds.scale <- function(x, type = "combined", name = NULL, datasources = NULL){
     if(cls == "numeric"){
       sd <- ds.sd(x, type = "combined", datasources = datasources)$Global.Standard_deviation[1,1]
       
-      cally <- paste0("scale2DS(", x, ", ", paste0(sd, collapse = ", "), ")")
+      cally <- paste0("ml_scaleDS(", x, ", ", paste0(sd, collapse = ", "), ")")
       DSI::datashield.assign.expr(datasources, name, expr = as.symbol(cally))
       # Remove created auxiliary data frame
-      ds.rm(x, datasources)
+      dsBaseClient::ds.rm(x, datasources)
     }
     else{
       # Get variables of the table on the first study server (consistency of columns is supposed)
-      vars <- ds.colnames(x, datasources)[[1]]
+      vars <- dsBaseClient::ds.colnames(x, datasources)[[1]]
       
       # Create vector of names (table + $ + variables)
       table_columns <- as.list(paste0(x, "$", vars))
@@ -62,10 +62,10 @@ ds.scale <- function(x, type = "combined", name = NULL, datasources = NULL){
       # this variable `sd` holds a value for each column to divide the column and get unitary variance
       sd <- lapply(table_columns, function(v) ds.sd(v, type = "combined", datasources = datasources)$Global.Standard_deviation[1,1])
       
-      cally <- paste0("scale2DS(", x, ", ", paste0(sd, collapse = ", "), ")")
+      cally <- paste0("ml_scaleDS(", x, ", ", paste0(sd, collapse = ", "), ")")
       DSI::datashield.assign.expr(datasources, name, expr = as.symbol(cally))
       # Remove created auxiliary data frame
-      ds.rm(x, datasources)
+      dsBaseClient::ds.rm(x, datasources)
     }
   }
   else if(type == "split"){
@@ -73,15 +73,15 @@ ds.scale <- function(x, type = "combined", name = NULL, datasources = NULL){
       sd <- ds.sd(x, type = "split", datasources = datasources)$Standard_deviation.by.Study[, 1]
       
       for(srvr in 1:num_servers){
-        cally <- paste0("scale2DS(", x, ", ", sd[srvr], ")")
+        cally <- paste0("ml_scaleDS(", x, ", ", sd[srvr], ")")
         DSI::datashield.assign.expr(datasources[srvr], name, expr = as.symbol(cally))
         # Remove created auxiliary data frame
-        ds.rm(x, datasources)
+        dsBaseClient::ds.rm(x, datasources)
       }
     }
     else{
       # Get variables of the table on the first study server (consistency of columns is supposed)
-      vars <- ds.colnames(x, datasources)[[1]]
+      vars <- dsBaseClient::ds.colnames(x, datasources)[[1]]
       
       # Create vector of names (table + $ + variables)
       table_columns <- as.list(paste0(x, "$", vars))
@@ -91,16 +91,16 @@ ds.scale <- function(x, type = "combined", name = NULL, datasources = NULL){
       
       for(srvr in 1:num_servers){
         sd_server <- lapply(sd, `[[`, srvr)
-        cally <- paste0("scale2DS(", x, ", ", paste0(sd_server, collapse = ", "), ")")
+        cally <- paste0("ml_scaleDS(", x, ", ", paste0(sd_server, collapse = ", "), ")")
         DSI::datashield.assign.expr(datasources[srvr], name, expr = as.symbol(cally))
         # Remove created auxiliary data frame
-        ds.rm(x, datasources)
+        dsBaseClient::ds.rm(x, datasources)
       }
     }
   }
   else{
     # Remove created auxiliary data frame
-    ds.rm(x, datasources)
+    dsBaseClient::ds.rm(x, datasources)
     stop(paste0("Not valid 'type' argument:", type))
     }
 }

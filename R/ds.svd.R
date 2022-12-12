@@ -16,7 +16,7 @@
 ds.svd <- function(x, method.block = "fast", ncomp = 2, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   # scale i center
@@ -41,7 +41,7 @@ ds.svd <- function(x, method.block = "fast", ncomp = 2, datasources = NULL){
   }
   
   # Remove created auxiliary data frame
-  ds.rm(x, datasources)
+  dsBaseClient::ds.rm(x, datasources)
   return(ans)
   
 }

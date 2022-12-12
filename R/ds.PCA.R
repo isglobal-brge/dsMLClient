@@ -39,7 +39,7 @@ ds.PCA <- function(x, method = "fast", ncomp = 2, scale = TRUE, center = TRUE, d
     ds.scale(x, "combined", NULL, datasources)
   }
   
-  var_cov <- ds.cov(x, type = "combine", datasources = datasources)$`Variance-Covariance Matrix`
+  var_cov <- dsBaseClient::ds.cov(x, type = "combine", datasources = datasources)$`Variance-Covariance Matrix`
   
   if(all(is.na(var_cov))){
     stop("The ratio of the number of variables over the number of individual-level records exceeds 
@@ -56,13 +56,13 @@ ds.PCA <- function(x, method = "fast", ncomp = 2, scale = TRUE, center = TRUE, d
   
   pca <- data.frame(var_cov_svd$u)
   
-  rownames_pca <- ds.colnames(x)
+  rownames_pca <- dsBaseClient::ds.colnames(x)
   rownames(pca) <- rownames_pca[[1]]
   colnames(pca) <- paste0(rep("PC", ncol(pca)),
                           seq(from = 1, by = 1, length.out = ncol(pca)))
   
   # Remove created auxiliary data frame
-  ds.rm(x, datasources)
+  dsBaseClient::ds.rm(x, datasources)
   
   return(pca)
   

@@ -1,13 +1,15 @@
 #' Title
 #'
-#' @param object 
-#' @param questions 
-#' @param datasources 
+#' @param object basis of the prepare dataset tree.
+#' @param questions questions needed by prepare dataset tree.
+#' @param objective_column objective column (not used)
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' If the \code{datasources} argument is not specified
+#' the default set of connections will be used: see \code{\link{datashield.connections_default}}.
 #'
-#' @return
+#' @return prepare dataset tree
 #' @export
 #'
-#' @examples
 prepare_dataset_tree <- function(object, objective_column, questions, datasources){
   
   cally <- paste0("prepare_dataset_treeDS(", object, ", '", sf::rawToHex(serialize(questions, NULL)), "')")

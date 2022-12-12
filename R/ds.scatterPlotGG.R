@@ -75,7 +75,7 @@ ds.scatterPlotGG <- function (x=NULL, y=NULL, group = NULL, method='deterministi
   }
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   # the input variable might be given as column table (i.e. D$object)

@@ -35,7 +35,7 @@
 ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroids = NULL, assign = TRUE, name = NULL, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   dsBaseClient:::isDefined(datasources, x)
@@ -55,12 +55,12 @@ ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroid
   x <- paste0(x, "_aux")
   
   # Create k centroids
-  columns <- ds.colnames(x, datasources)[[1]]
+  columns <- dsBaseClient::ds.colnames(x, datasources)[[1]]
   if(is.null(centroids)){
     # Get 10% and 90% quantiles for each column to create random vectors
     centroids <- matrix(0, ncol = k, nrow = length(columns))
     for(i in 1:length(columns)){
-      quants <- ds.summary(paste0(x, "$", columns[i]), datasources)
+      quants <- dsBaseClient::ds.summary(paste0(x, "$", columns[i]), datasources)
       min_var <- min(unlist(lapply(quants, function(x) x$`quantiles & mean`[[2]])))
       max_var <- max(unlist(lapply(quants, function(x) x$`quantiles & mean`[[6]])))
       centroids[i,] <- stats::runif(k, min_var, max_var)
@@ -83,8 +83,8 @@ ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroid
       w <- matrix(0, ncol = k, nrow = length(columns))
       for(i in 1:length(columns)){
         for(j in 1:k){
-          w[i,j] <- weighted.mean(unlist(lapply(new, function(x) x[[2]][j,i])), 
-                                  unlist(lapply(new, function(x) x[[1]][j,2])))
+          w[i,j] <- stats::weighted.mean(unlist(lapply(new, function(x) x[[2]][j,i])),
+                                         unlist(lapply(new, function(x) x[[1]][j,2])))
         }
       }
     }
@@ -113,7 +113,7 @@ ds.kmeans <- function(x, k = NULL, convergence = 0.001, max.iter = 100, centroid
   colnames(w) <- paste0("Centroid", 1:ncol(w))
   
   # Remove created auxiliary data frame
-  ds.rm(x, datasources)
+  dsBaseClient::ds.rm(x, datasources)
   return(w)
   
 }

@@ -13,7 +13,7 @@
 
 ds.subset_type <- function(data, type = "numeric", newobj = NULL, datasources = NULL){
   
-  if(is.null(data) | class(data) != "character"){
+  if(is.null(data) || (! all(c("character") %in% class(data)))){
     stop("Input variable 'data' must have a value which is a character string")
   }
   

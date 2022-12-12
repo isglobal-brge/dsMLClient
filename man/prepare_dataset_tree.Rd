@@ -7,11 +7,18 @@
 prepare_dataset_tree(object, objective_column, questions, datasources)
 }
 \arguments{
-\item{object}{}
+\item{object}{basis of the prepare dataset tree.}
 
-\item{questions}{}
+\item{objective_column}{objective column (not used)}
 
-\item{datasources}{}
+\item{questions}{questions needed by prepare dataset tree.}
+
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.
+If the \code{datasources} argument is not specified
+the default set of connections will be used: see \code{\link{datashield.connections_default}}.}
+}
+\value{
+prepare dataset tree
 }
 \description{
 Title

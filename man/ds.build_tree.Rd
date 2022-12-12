@@ -7,13 +7,18 @@
 ds.build_tree(object, objective_column, questions = NULL, datasources = NULL)
 }
 \arguments{
-\item{object}{}
+\item{object}{basis of build tree}
 
-\item{objective_column}{}
+\item{objective_column}{objective columns needed to build tree}
 
-\item{questions}{}
+\item{questions}{questions needed to build tree}
 
-\item{datasources}{}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.
+If the \code{datasources} argument is not specified
+the default set of connections will be used: see \code{\link{datashield.connections_default}}.}
+}
+\value{
+the built tree
 }
 \description{
 Title

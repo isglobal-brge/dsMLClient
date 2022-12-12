@@ -15,7 +15,7 @@
 ds.dummies <- function(x, name = NULL, prob_adjust = FALSE, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   if(is.null(name)){

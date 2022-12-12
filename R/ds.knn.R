@@ -56,12 +56,12 @@
 ds.knn <- function(x, classificator, query, neigh = 3, method.indicator = "knn", k = 3, noise = 0.25, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
-  if((length(ds.colnames(x)[[1]]) - 1) != length(query)){
+  if((length(dsBaseClient::ds.colnames(x)[[1]]) - 1) != length(query)){
     stop(paste0("Length of 'query' [", length(query), 
-                "] is longer than variables on 'x' dataset [", (length(ds.colnames(x)[[1]]) - 1), "]"))
+                "] is longer than variables on 'x' dataset [", (length(dsBaseClient::ds.colnames(x)[[1]]) - 1), "]"))
   }
   
   dsBaseClient:::isDefined(datasources, x)

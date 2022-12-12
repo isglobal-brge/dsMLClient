@@ -1,18 +1,19 @@
 #' Title
 #'
-#' @param object 
-#' @param column 
-#' @param objective_column 
-#' @param datasources 
+#' @param object basis of gini index
+#' @param column column needed for gini index
+#' @param objective_column objective column needed for gini index
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' If the \code{datasources} argument is not specified
+#' the default set of connections will be used: see \code{\link{datashield.connections_default}}.
 #'
-#' @return
+#' @return the gini index
 #' @export
 #'
-#' @examples
 ds.gini_index <- function(object, column, objective_column, datasources = NULL){
 
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   gini_fun <- function(x){
@@ -25,10 +26,10 @@ ds.gini_index <- function(object, column, objective_column, datasources = NULL){
   }
   
   # Get class of column 
-  type <- ds.class(paste0(object, "$", column), datasources)
+  type <- dsBaseClient::ds.class(paste0(object, "$", column), datasources)
   
   if(all(type == "factor")){
-    agg <- tryCatch({ds.table(paste0(object, "$", column), paste0(object, "$", objective_column), datasources = datasources)}, error = function(w){
+    agg <- tryCatch({dsBaseClient::ds.table(paste0(object, "$", column), paste0(object, "$", objective_column), datasources = datasources)}, error = function(w){
       NULL
     })
     if(is.null(agg)){
@@ -47,34 +48,34 @@ ds.gini_index <- function(object, column, objective_column, datasources = NULL){
                                    row.names = NULL), type = "factor")
   }
   else if(all(type == "numeric")){
-    k <- ds.mean(paste0(object, "$", column), type = "combine", datasources = datasources)$Global.Mean[1]
+    k <- dsBaseClient::ds.mean(paste0(object, "$", column), type = "combine", datasources = datasources)$Global.Mean[1]
       # Create a vector with all k
-    ds.make(toAssign = paste0(object, "$", column, "-", object, "$", column, "+", k),
-             newobj = "ds.gini_index_ks",
-             datasources = datasources) 
-    ds.dataFrameSubset(df.name = object, V1.name = paste0(object, "$", column), 
-                       V2.name = "ds.gini_index_ks", Boolean.operator =  ">", 
-                       newobj = "ds.gini_index_upper", keep.NAs = T, datasources = datasources)
-    ds.dataFrameSubset(df.name = object, V1.name = paste0(object, "$", column), 
-                       V2.name = "ds.gini_index_ks", Boolean.operator =  "<=", 
-                       newobj = "ds.gini_index_lower", keep.NAs = T, datasources = datasources)
+    dsBaseClient::ds.make(toAssign = paste0(object, "$", column, "-", object, "$", column, "+", k),
+                          newobj = "ds.gini_index_ks",
+                          datasources = datasources) 
+    dsBaseClient::ds.dataFrameSubset(df.name = object, V1.name = paste0(object, "$", column), 
+                                     V2.name = "ds.gini_index_ks", Boolean.operator =  ">", 
+                                     newobj = "ds.gini_index_upper", keep.NAs = T, datasources = datasources)
+    dsBaseClient::ds.dataFrameSubset(df.name = object, V1.name = paste0(object, "$", column), 
+                                     V2.name = "ds.gini_index_ks", Boolean.operator =  "<=", 
+                                     newobj = "ds.gini_index_lower", keep.NAs = T, datasources = datasources)
     # PETE AQUI, PERQUE PETE!!!!!!!!!?????????
-    agg_low <- tryCatch({ds.table(paste0("ds.gini_index_lower$", objective_column), datasources = datasources)}, 
+    agg_low <- tryCatch({dsBaseClient::ds.table(paste0("ds.gini_index_lower$", objective_column), datasources = datasources)}, 
              error = function(w){
-               datashield.rm(datasources, "ds.gini_index_ks")
-               datashield.rm(datasources, "ds.gini_index_upper")
-               datashield.rm(datasources, "ds.gini_index_lower")
+               DSI::datashield.rm(datasources, "ds.gini_index_ks")
+               DSI::datashield.rm(datasources, "ds.gini_index_upper")
+               DSI::datashield.rm(datasources, "ds.gini_index_lower")
                NULL
                })
     if(is.null(agg_low) | !is.null(agg_low$error.messages)){
       return(cbind(data.frame(gini_index = 1, column = column, 
                                                  question = NA, row.names = NULL)
                                       , type = "numerical"))}
-    agg_upp <- tryCatch({ds.table(paste0("ds.gini_index_upper$", objective_column), datasources = datasources)}, 
+    agg_upp <- tryCatch({dsBaseClient::ds.table(paste0("ds.gini_index_upper$", objective_column), datasources = datasources)}, 
                         error = function(w){
-                          datashield.rm(datasources, "ds.gini_index_ks")
-                          datashield.rm(datasources, "ds.gini_index_upper")
-                          datashield.rm(datasources, "ds.gini_index_lower")
+                          DSI::datashield.rm(datasources, "ds.gini_index_ks")
+                          DSI::datashield.rm(datasources, "ds.gini_index_upper")
+                          DSI::datashield.rm(datasources, "ds.gini_index_lower")
                           NULL
                         })
     if(is.null(agg_upp) | !is.null(agg_low$error.messages)){
@@ -91,9 +92,9 @@ ds.gini_index <- function(object, column, objective_column, datasources = NULL){
                                   , type = "numerical")
   }
   
-  datashield.rm(datasources, "ds.gini_index_ks")
-  datashield.rm(datasources, "ds.gini_index_upper")
-  datashield.rm(datasources, "ds.gini_index_lower")
+  DSI::datashield.rm(datasources, "ds.gini_index_ks")
+  DSI::datashield.rm(datasources, "ds.gini_index_upper")
+  DSI::datashield.rm(datasources, "ds.gini_index_lower")
   
   return(gini_index)
   

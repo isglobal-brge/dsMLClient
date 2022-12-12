@@ -28,7 +28,7 @@ ds.sd <- function(x, type = 'split', checks = FALSE, datasources = NULL){
     datasources <- DSI::datashield.connections_find()
   }
   
-  variance <- ds.var(x, type, checks, datasources = datasources)
+  variance <- dsBaseClient::ds.var(x, type, checks, datasources = datasources)
     # SD = sqrt(var)
   if(type == "split"){
     variance$Variance.by.Study[, 1] <- sqrt(variance$Variance.by.Study[, 1])

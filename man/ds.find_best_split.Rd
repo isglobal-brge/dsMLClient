@@ -7,11 +7,16 @@
 ds.find_best_split(object, objective_column, datasources = NULL)
 }
 \arguments{
-\item{object}{}
+\item{object}{basis of best split}
 
-\item{objective_column}{}
+\item{objective_column}{object column of best split}
 
-\item{datasources}{}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.
+If the \code{datasources} argument is not specified
+the default set of connections will be used: see \code{\link{datashield.connections_default}}.}
+}
+\value{
+the best split
 }
 \description{
 Title

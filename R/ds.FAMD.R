@@ -11,7 +11,7 @@
 ds.FAMD <- function(x, datasources = NULL){
   
   if(is.null(datasources)){
-    datasources <- datashield.connections_find()
+    datasources <- DSI::datashield.connections_find()
   }
   
   dsBaseClient:::isDefined(datasources, x)
@@ -28,7 +28,7 @@ ds.FAMD <- function(x, datasources = NULL){
   
   ds.dummies(paste0(x, "_factors"), NULL, TRUE, datasources)
   
-  ds.cbind(
+  dsBaseClient::ds.cbind(
     x = c(paste0(x, "_numerics"),
           paste0(x, "_factors")), 
     newobj = paste0(x, "_complete"), 
