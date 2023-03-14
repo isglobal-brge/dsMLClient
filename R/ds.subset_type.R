@@ -25,7 +25,7 @@ ds.subset_type <- function(data, type = "numeric", newobj = NULL, datasources = 
     newobj <- data
   }
   
-  cally <- paste0("subset_by_typeDS(", data, ", '", type, "')")
+  cally <- paste0("subset_typeDS(", data, ", '", type, "')")
   DSI::datashield.assign.expr(datasources, newobj, as.symbol(cally))
   
 }
