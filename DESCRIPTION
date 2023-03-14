@@ -1,7 +1,7 @@
 Package: dsMLClient
 Title: DataSHIELD client site machine learning functions
 Authors@R: c(person("Xavier", "Escribà-Montagut", , "xavier.escriba@isglobal.org", role = c("aut", "cre")))
-Version: 0.93
+Version: 0.94
 Description: DataSHIELD client site machine learning functions.
 License: GPL-3
 Depends:
